@@ -6,16 +6,172 @@
     <title>Solicitud de novia</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="https://cdn.pixabay.com/video/2023/03/09/153977-806571978_large.mp4" type="video/mp4">
     </video>
+    <div class="solicitud"> 
 
-    <div class="contenedor">
-        <h1>¿Quieres ser mi novia?</h1>
-        <button id="si">Sí 💖</button>
-        <button id="no">No 😢</button>
+        <div id="solicitud" class="contenedor">
+            <h1>¿Quieres ser mi novia?</h1>
+            <button id="si">Sí 💖</button>
+            <button id="no">No 😢</button>
+        </div>
+    
+
+    <div id="acepto" class="contenedor" aria-hidden="true">
+        <img class="gatito" src="https://i.pinimg.com/originals/a9/0d/fa/a90dfa62495d173a79e319aa93e2096c.png" alt="">
+        <h3>Me gusta mucho que estés en mi vida y poder compartir contigo estos días. Me haces sonreír, me inspiras a ser mejor, y me encanta cómo nos estamos conociendo. Gracias por darme una oportunidad y por ser tan especial.
+            Me alegro de tenerte cerca 💖</h3>
+
+        <a href="https://wa.me/573012345678" target="_blank" rel="noopener noreferrer">
+        <img class="logo" src="https://static.vecteezy.com/system/resources/previews/018/819/287/original/whatsapp-icon-transparent-free-png.png" alt="WhatsApp" width="50" height="50">
+        <h3>Escribeme...</h3>
+        </a>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
+
+<script>
+    const btnSi = document.getElementById('si');
+const btnNo = document.getElementById('no');
+
+const solicitud = document.getElementById('solicitud');
+const acepto = document.getElementById('acepto');
+
+btnSi.addEventListener('click', () => {
+        solicitud.style.display = 'none';
+        acepto.style.display = 'flex';
+        acepto.setAttribute('aria-hidden', 'false');
+        solicitud.setAttribute('aria-hidden', 'true');
+});
+
+function teleportButton(btn) {
+    const rect = btn.getBoundingClientRect();
+    const margin = 10;
+    const btnW = rect.width;
+    const btnH = rect.height;
+    const maxLeft = Math.max(margin, window.innerWidth - btnW - margin);
+    const maxTop = Math.max(margin, window.innerHeight - btnH - margin);
+    const left = Math.floor(Math.random() * (maxLeft - margin + 1)) + margin;
+    const top = Math.floor(Math.random() * (maxTop - margin + 1)) + margin;
+    btn.style.position = 'fixed';
+    btn.style.transition = 'left 0.25s ease, top 0.25s ease, transform 0.2s ease';
+    btn.style.left = left + 'px';
+    btn.style.top = top + 'px';
+}
+
+btnNo.addEventListener('click', (e) => {
+
+    teleportButton(btnNo);
+
+   
+    let noScale = btnNo._scale || 1;
+    noScale = Math.max(0.3, noScale - 0.05);
+    let currScale = btnSi._scale || 1;
+    currScale = currScale + 1;
+    btnSi._scale = currScale;
+    btnSi.style.transform = `scale(${currScale})`;
+    btnNo._scale = noScale;
+    btnNo.style.transform = `scale(${noScale})`;
+});
+</script>
+
+<style>
+    .body{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+    .solicitud{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        display: flex;
+    }
+    #acepto{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        display: none;
+    }
+    #bg-video {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        object-fit: cover;
+            background-image: url('https://cdn.pixabay.com/photo/2016/11/29/09/17/balloons-1869728_1280.jpg');
+    }
+    .contenedor{
+        padding: 20px;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+        color: white;
+        font-weight: bold;
+    }
+    h3 {
+        color: white;
+    }
+    a{
+        background-color: rgb(0, 175, 0);
+
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        #solicitud { display: flex; }
+        #acepto { display: none; }
+        border-radius: 50px;
+        display: flex;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+    #si{
+        background-color: mediumvioletred;
+    }
+    #no{
+        background-color: dimgrey;
+    }
+    #si, #no {
+        color: white;
+        font-weight: bold;
+        padding: 10px 20px;
+        font-size: 18px;
+        margin: 10px;
+        transition: transform 0.3s ease;
+        border-radius: 55px;
+    }
+    #si:hover, #no:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+    .gatito{
+        width: 150px;
+        border-radius: 20px;
+    }
+
+</style>
